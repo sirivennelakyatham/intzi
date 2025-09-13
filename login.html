@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - INTZI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f8f9ff;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: #222;
+    }
+    /* Responsive nav styles (loaded from navbar.html as well, but safe as backup) */
+    .navbar {
+      background: #5f64ec;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      height: 60px;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+    }
+    .navbar .brand {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-grow: 1;
+      justify-content: space-between;
+      margin: 0 0 0 40px;
+      padding: 0;
+    }
+    .navbar ul li {
+      flex: 1;
+      text-align: center;
+    }
+    .navbar ul li a {
+      color: #bdc3c7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 18px 0;
+      display: block;
+      border-radius: 4px 4px 0 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .navbar ul li a:hover {
+      background-color: #34495e;
+      color: #ecf0f1;
+    }
+    .navbar ul li a.active {
+      background-color: rgba(248, 249, 255, 0.8);
+      color: #5f64ec;
+      box-shadow: inset 0 -3px 0 0 #5f64eccc;
+      font-weight: 700;
+    }
+    @media (max-width:600px) {
+      .navbar ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 20px;
+      }
+      .navbar ul li {
+        flex: none;
+        margin: 5px 10px;
+      }
+      .navbar {
+        padding: 0 20px;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+    /* Login card */
+    .login-card {
+      max-width: 370px;
+      margin: 80px auto 0 auto;
+      background: #fff;
+      box-shadow: 0 8px 32px rgba(82,85,201,0.13);
+      border-radius: 16px;
+      padding: 38px 28px 29px 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .login-card h2 {
+      margin-top: 0;
+      font-size: 2rem;
+      color: #5f64ec;
+      font-weight: 700;
+      letter-spacing: .06em;
+      margin-bottom: 20px;
+    }
+    .login-card input[type="text"], .login-card input[type="password"] {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 8px;
+      font-size: 1.07rem;
+      border: 1.5px solid #e2e6fc;
+      margin: 7px 0 13px 0;
+      background: #f8f9ff;
+      font-family: inherit;
+    }
+    .login-card button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: #5f64ec;
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.13em;
+      border: none;
+      margin: 13px 0 5px 0;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .login-card button[type="submit"]:hover {
+      background: #3637a5;
+    }
+    .login-card .link-row {
+      font-size: .99em;
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      color: #7b7ede;
+    }
+    .login-card .link-row a {
+      color: #5f64ec;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 0 5px;
+    }
+    .login-card .link-row a:hover {
+      color: #2f33b7;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar-placeholder"></div>
+
+  <div class="login-card">
+    <h2>Login</h2>
+    <form>
+      <input type="text" placeholder="Email or Phone Number" required autocomplete="username" />
+      <input type="password" placeholder="Password" required autocomplete="current-password" />
+      <button type="submit">Login</button>
+    </form>
+    <div class="link-row">
+      <a href="forgot.html">Forgot Password?</a> | 
+      <a href="signup.html">Create Account</a>
+    </div>
+  </div>
+
+  <script>
+    // load navbar.html and highlight active
+    fetch('navbar.html').then(r=>r.text()).then(data=>{
+      document.getElementById('navbar-placeholder').innerHTML = data;
+      // highlight "Login" tab if present
+      const current = window.location.pathname.split("/").pop().toLowerCase();
+      document.querySelectorAll('.navbar ul li a').forEach(link=>{
+        if(link.getAttribute('href') && (link.getAttribute('href').toLowerCase().includes('login') || link.textContent.trim().toLowerCase() === 'login')){
+          link.classList.add('active');
+        }
+        // else highlight if it matches page (for other routes)
+        else if(link.getAttribute('href') && link.getAttribute('href').toLowerCase() === current){
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
